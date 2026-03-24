@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anuj Sharma - AI SEO & Performance Marketing Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="animations.css">
+</head>
+<body class="bg-slate-900 text-white overflow-x-hidden">
+    
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 w-full bg-slate-900/80 backdrop-blur-md z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex justify-between items-center">
+                <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                    <i class="fas fa-chart-line mr-2"></i>Anuj Sharma
+                </h1>
+                <ul class="hidden md:flex space-x-8">
+                    <li><a href="#home" class="nav-link hover:text-blue-400 transition">Home</a></li>
+                    <li><a href="#about" class="nav-link hover:text-blue-400 transition">About</a></li>
+                    <li><a href="#projects" class="nav-link hover:text-blue-400 transition">Projects</a></li>
+                    <li><a href="#experience" class="nav-link hover:text-blue-400 transition">Experience</a></li>
+                    <li><a href="#skills" class="nav-link hover:text-blue-400 transition">Skills</a></li>
+                    <li><a href="#contact" class="nav-link hover:text-blue-400 transition">Contact</a></li>
+                </ul>
+                <button id="menu-btn" class="md:hidden text-2xl"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden fixed top-20 left-0 w-full bg-slate-800 md:hidden z-40">
+        <ul class="flex flex-col space-y-4 p-4">
+            <li><a href="#home" class="block hover:text-blue-400">Home</a></li>
+            <li><a href="#about" class="block hover:text-blue-400">About</a></li>
+            <li><a href="#projects" class="block hover:text-blue-400">Projects</a></li>
+            <li><a href="#experience" class="block hover:text-blue-400">Experience</a></li>
+            <li><a href="#skills" class="block hover:text-blue-400">Skills</a></li>
+            <li><a href="#contact" class="block hover:text-blue-400">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+        <!-- Animated Background -->
+        <div class="absolute inset-0 -z-10 overflow-hidden">
+            <div id="canvas-container" class="w-full h-full"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-slate-900/0 via-slate-900/50 to-slate-900"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center relative z-10">
+            <h2 class="hero-title text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                <span class="block">AI SEO &</span>
+                <span class="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    Generative Search Portfolio
+                </span>
+            </h2>
+            <p class="hero-subtitle text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                AI SEO & Performance Marketing Strategist with 4+ years of experience in SXO, GEO, AEO, and paid media growth across Google and Meta.
+            </p>
+            <div class="hero-buttons flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                <a href="#projects" class="px-8 py-4 bg-blue-500 hover:bg-blue-600 rounded-lg font-semibold transition transform hover:scale-105">
+                    View My Work
+                </a>
+                <a href="#contact" class="px-8 py-4 border-2 border-blue-400 hover:bg-blue-400/10 rounded-lg font-semibold transition">
+                    Get In Touch
+                </a>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="scroll-indicator mt-12 animate-bounce">
+                <i class="fas fa-chevron-down text-2xl text-blue-400"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-slate-800/50 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 class="section-title text-4xl md:text-5xl font-bold mb-12 text-center">
+                <span class="gradient-text">About Me</span>
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <!-- About Content -->
+                <div class="about-content">
+                    <div class="space-y-6">
+                        <p class="text-gray-300 text-lg leading-relaxed fade-in">
+                            I'm a <span class="text-blue-400 font-semibold">Digital Marketing Expert</span> with 4+ years of experience building scalable search ecosystems across Google, LLMs, and zero-click environments. I specialize in <span class="text-blue-400">Search Experience Optimization (SXO), Generative Engine Optimization (GEO), and Answer Engine Optimization (AEO)</span>.
+                        </p>
+                        <p class="text-gray-300 text-lg leading-relaxed fade-in">
+                            Proven track record of increasing organic traffic by 60%+, reducing CPL by 20%, and improving ROAS by 35% through structured data, entity-driven content architecture, AI-powered workflows, technical SEO, and performance marketing execution.
+                        </p>
+
+                        <!-- Stats -->
+                        <div class="grid grid-cols-3 gap-4 mt-8">
+                            <div class="stat-card">
+                                <div class="text-3xl font-bold text-blue-400">60%+</div>
+                                <div class="text-gray-400">Traffic Growth</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="text-3xl font-bold text-purple-400">4+</div>
+                                <div class="text-gray-400">Years Experience</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="text-3xl font-bold text-pink-400">35%</div>
+                                <div class="text-gray-400">ROAS Improvement</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- About Image with Canvas -->
+                <div class="about-image relative">
+                    <div id="about-canvas" style="width: 100%; height: 450px; margin-bottom: 20px;"></div>
+                    <img src="https://picsum.photos/400/450?random=2" alt="Anuj Sharma" class="rounded-lg shadow-2xl transition transform hover:scale-105">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 class="section-title text-4xl md:text-5xl font-bold mb-4 text-center">
+                <span class="gradient-text">Featured Projects</span>
+            </h3>
+            <p class="text-center text-gray-400 mb-12">Key project impact from SEO, GEO, AEO, and performance campaigns</p>
+
+            <!-- Project Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="project-card group bg-slate-800 rounded-lg overflow-hidden shadow-lg transition transform hover:scale-105 hover:shadow-2xl">
+                    <div class="project-image overflow-hidden h-48 bg-gradient-to-br from-blue-500 to-purple-600">
+                        <img src="https://picsum.photos/400/300?random=3" alt="Project 1" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-2xl font-bold mb-2">Position Zero SEO Architecture</h4>
+                        <p class="text-gray-400 mb-4">Structured high-intent service pages with an inverted pyramid model to improve zero-click and featured snippet visibility.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="badge">SXO</span>
+                            <span class="badge">Technical SEO</span>
+                            <span class="badge">Schema Markup</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="https://linkedin.com/in/amanmarketingpro" class="hover:text-blue-400"><i class="fab fa-linkedin"></i> Case Study</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card group bg-slate-800 rounded-lg overflow-hidden shadow-lg transition transform hover:scale-105 hover:shadow-2xl">
+                    <div class="project-image overflow-hidden h-48 bg-gradient-to-br from-purple-500 to-pink-600">
+                        <img src="https://picsum.photos/400/300?random=4" alt="Project 2" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-2xl font-bold mb-2">Paid Media Scale & ROAS Growth</h4>
+                        <p class="text-gray-400 mb-4">Managed 25L+ monthly ad spend across Google and Meta, reducing CPL by 20% and increasing ROAS by 35%.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="badge">Google Ads</span>
+                            <span class="badge">Meta Ads</span>
+                            <span class="badge">CRO</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="https://linkedin.com/in/amanmarketingpro" class="hover:text-blue-400"><i class="fab fa-linkedin"></i> Case Study</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card group bg-slate-800 rounded-lg overflow-hidden shadow-lg transition transform hover:scale-105 hover:shadow-2xl">
+                    <div class="project-image overflow-hidden h-48 bg-gradient-to-br from-pink-500 to-blue-600">
+                        <img src="https://picsum.photos/400/300?random=5" alt="Project 3" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-2xl font-bold mb-2">GEO + AEO Content System</h4>
+                        <p class="text-gray-400 mb-4">Built FAQ schema hubs and modular knowledge blocks for AI summarization, refreshing 120+ pages via quarterly decay audits.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="badge">GEO</span>
+                            <span class="badge">AEO</span>
+                            <span class="badge">Entity SEO</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="https://linkedin.com/in/amanmarketingpro" class="hover:text-blue-400"><i class="fab fa-linkedin"></i> Case Study</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View All Projects -->
+            <div class="text-center mt-12">
+                <a href="https://linkedin.com/in/amanmarketingpro" class="inline-block px-8 py-4 border-2 border-blue-400 hover:bg-blue-400/10 rounded-lg font-semibold transition">
+                    View More on LinkedIn <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience & Credentials Section -->
+    <section id="experience" class="py-20 bg-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 class="section-title text-4xl md:text-5xl font-bold mb-4 text-center">
+                <span class="gradient-text">Experience & Credentials</span>
+            </h3>
+            <p class="text-center text-gray-400 mb-12">Professional journey, education, and certifications from my resume</p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="project-card bg-slate-800 rounded-lg p-6 border border-slate-700">
+                        <h4 class="text-2xl font-bold mb-1">SEO Manager</h4>
+                        <p class="text-blue-400 font-semibold mb-1">Durapid Technologies</p>
+                        <p class="text-gray-400 mb-4">Nov 2024 - Present</p>
+                        <ul class="text-gray-300 space-y-2 list-disc pl-5">
+                            <li>Improved crawl efficiency by 40% and reduced indexing delays by 65% through technical SEO overhaul.</li>
+                            <li>Implemented FAQ and HowTo schema for zero-click and featured snippet visibility.</li>
+                            <li>Increased organic blog traffic by 25% MoM with AI-driven topic gap analysis.</li>
+                            <li>Improved Core Web Vitals, including LCP under 2 seconds, across 30+ pages.</li>
+                        </ul>
+                    </div>
+
+                    <div class="project-card bg-slate-800 rounded-lg p-6 border border-slate-700">
+                        <h4 class="text-2xl font-bold mb-1">Digital Marketing Lead</h4>
+                        <p class="text-blue-400 font-semibold mb-1">Satnam Webtech</p>
+                        <p class="text-gray-400 mb-4">Jan 2022 - Sep 2024</p>
+                        <ul class="text-gray-300 space-y-2 list-disc pl-5">
+                            <li>Managed 25L+ monthly ad spend across Google Ads and Meta Ads channels.</li>
+                            <li>Reduced CPL by 20% using AI bid strategies and intent segmentation.</li>
+                            <li>Increased ROAS by 35% through UX-focused landing page optimization.</li>
+                            <li>Built SEO cluster strategy delivering 60% traffic growth and reduced content turnaround by 40% with AI workflows.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="project-card bg-slate-800 rounded-lg p-6 border border-slate-700">
+                        <h4 class="text-xl font-bold mb-3">Education</h4>
+                        <p class="text-gray-200 font-semibold">MBA (Data Engineering)</p>
+                        <p class="text-blue-400">Manipal University, Jaipur</p>
+                        <p class="text-gray-400">Expected 2025 | GPA: 8.5</p>
+                    </div>
+
+                    <div class="project-card bg-slate-800 rounded-lg p-6 border border-slate-700">
+                        <h4 class="text-xl font-bold mb-3">Certifications</h4>
+                        <ul class="text-gray-300 space-y-2 list-disc pl-5">
+                            <li>Google Ads Certified (Search & Display)</li>
+                            <li>Google Analytics 4 Advanced</li>
+                            <li>Meta Blueprint (Media Buying)</li>
+                            <li>SEO Technical Mastery - SEMrush</li>
+                            <li>AI for PPC - Coursera</li>
+                            <li>Prompt Engineering for Marketers</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-slate-800/50 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 class="section-title text-4xl md:text-5xl font-bold mb-12 text-center">
+                <span class="gradient-text">Skills & Technologies</span>
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Search Strategy -->
+                <div class="skill-category">
+                    <h4 class="text-xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-search text-blue-400 mr-3"></i>Search Strategy
+                    </h4>
+                    <div class="space-y-3">
+                        <div class="skill-item">
+                            <span class="text-sm font-semibold">SXO</span>
+                            <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
+                                <div class="bg-blue-500 h-2 rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="text-sm font-semibold">GEO</span>
+                            <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
+                                <div class="bg-blue-500 h-2 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="text-sm font-semibold">AEO</span>
+                            <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
+                                <div class="bg-blue-500 h-2 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="text-sm font-semibold">Entity SEO</span>
+                            <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
+                                <div class="bg-blue-500 h-2 rounded-full" style="width: 92%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technical SEO -->
+                <div class="skill-category">
+                    <h4 class="text-xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-cogs text-purple-400 mr-3"></i>Technical SEO
+                    </h4>
+                    <div class="space-y-3">
+                        <div class="skill-item">
+                            <span class="text-sm font-semibold">Crawlability & Indexing</span>
+                            <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
+                                <div class="bg-purple-500 h-2 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="text-sm font-semibold">Core Web Vitals</span>
+                            <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
+                                <div class="bg-purple-500 h-2 rounded-full" style="width: 88%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="text-sm font-semibold">Schema Markup</span>
+                            <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
+                                <div class="bg-purple-500 h-2 rounded-full" style="width: 92%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="text-sm font-semibold">Programmatic SEO</span>
+                            <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
+                                <div class="bg-purple-500 h-2 rounded-full" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Performance Marketing -->
+                <div class="skill-category">
+                    <h4 class="text-xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-bullhorn text-pink-400 mr-3"></i>Performance Marketing
+                    </h4>
+                    <div class="space-y-3">
+                        <div class="skill-item">
+                            <span class="text-sm font-semibold">Google Ads</span>
+                            <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
+                                <div class="bg-pink-500 h-2 rounded-full" style="width: 88%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="text-sm font-semibold">Meta Ads</span>
+                            <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
+                                <div class="bg-pink-500 h-2 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="text-sm font-semibold">CRO</span>
+                            <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
+                                <div class="bg-pink-500 h-2 rounded-full" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="text-sm font-semibold">Predictive Bid Optimization</span>
+                            <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
+                                <div class="bg-pink-500 h-2 rounded-full" style="width: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analytics & Automation -->
+                <div class="skill-category">
+                    <h4 class="text-xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-robot text-yellow-400 mr-3"></i>Analytics & Automation
+                    </h4>
+                    <div class="space-y-3">
+                        <div class="skill-item">
+                            <span class="text-sm font-semibold">GA4 & GTM</span>
+                            <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
+                                <div class="bg-yellow-500 h-2 rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="text-sm font-semibold">SEMrush & Ahrefs</span>
+                            <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
+                                <div class="bg-yellow-500 h-2 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="text-sm font-semibold">Screaming Frog & Surfer SEO</span>
+                            <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
+                                <div class="bg-yellow-500 h-2 rounded-full" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="text-sm font-semibold">Zapier & N8N</span>
+                            <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
+                                <div class="bg-yellow-500 h-2 rounded-full" style="width: 82%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 class="section-title text-4xl md:text-5xl font-bold mb-4 text-center">
+                <span class="gradient-text">Get In Touch</span>
+            </h3>
+            <p class="text-center text-gray-400 mb-12">Looking for SEO, GEO, AEO, and performance growth? Let's connect.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Contact Form -->
+                <div class="contact-form">
+                    <form id="contactForm" class="space-y-6">
+                        <div>
+                            <input type="text" placeholder="Your Name" class="w-full px-4 py-3 bg-slate-800 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+                        <div>
+                            <input type="email" placeholder="Your Email" class="w-full px-4 py-3 bg-slate-800 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+                        <div>
+                            <input type="text" placeholder="Subject" class="w-full px-4 py-3 bg-slate-800 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+                        <div>
+                            <textarea placeholder="Your Message" rows="5" class="w-full px-4 py-3 bg-slate-800 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
+                        </div>
+                        <button type="submit" class="w-full px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 rounded-lg font-semibold transition transform hover:scale-105">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="contact-info space-y-8">
+                    <div class="contact-item flex items-start">
+                        <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                            <i class="fas fa-envelope text-blue-400 text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-semibold mb-2">Email</h4>
+                            <a href="mailto:anujsharma7425@gmail.com" class="text-gray-400 hover:text-blue-400">anujsharma7425@gmail.com</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-item flex items-start">
+                        <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                            <i class="fas fa-phone text-purple-400 text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-semibold mb-2">Phone</h4>
+                            <a href="tel:+918306398990" class="text-gray-400 hover:text-purple-400">+91-8306398990</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-item flex items-start">
+                        <div class="w-12 h-12 bg-pink-500/20 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                            <i class="fas fa-map-marker-alt text-pink-400 text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-semibold mb-2">Focus</h4>
+                            <p class="text-gray-400">AI SEO, GEO, AEO, Performance Marketing</p>
+                        </div>
+                    </div>
+
+                    <!-- Social Links -->
+                    <div class="pt-8 border-t border-slate-700">
+                        <h4 class="text-xl font-semibold mb-4">Connect With Me</h4>
+                        <div class="flex gap-4">
+                            <a href="https://linkedin.com/in/amanmarketingpro" class="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center hover:bg-blue-500 transition">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="mailto:anujsharma7425@gmail.com" class="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center hover:bg-gray-600 transition">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                            <a href="tel:+918306398990" class="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center hover:bg-red-500 transition">
+                                <i class="fas fa-phone"></i>
+                            </a>
+                            <a href="#about" class="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center hover:bg-pink-500 transition">
+                                <i class="fas fa-user"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 border-t border-slate-800 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400">&copy; 2026 Anuj Sharma. All rights reserved.</p>
+                <p class="text-gray-500 text-sm">AI SEO & Performance Marketing Strategist | SXO | GEO | AEO</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script src="three-setup.js"></script>
+</body>
+</html>

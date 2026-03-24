@@ -1,0 +1,195 @@
+{
+  "personal": {
+    "name": "Anuj",
+    "title": "Full Stack Developer",
+    "email": "anuj@example.com",
+    "phone": "+91 (123) 456-7890",
+    "location": "New Delhi, India",
+    "bio": "With expertise in modern web technologies, I create stunning digital experiences that captivate users and drive results.",
+    "summary": "I'm a passionate Full Stack Developer with 5+ years of experience crafting elegant solutions to complex problems. I specialize in building scalable web applications, designing intuitive user interfaces, and optimizing performance."
+  },
+  
+  "social": {
+    "github": "https://github.com/anuj",
+    "linkedin": "https://linkedin.com/in/anuj",
+    "twitter": "https://twitter.com/anuj",
+    "instagram": "https://instagram.com/anuj"
+  },
+
+  "stats": [
+    {
+      "value": "50+",
+      "label": "Projects",
+      "color": "blue"
+    },
+    {
+      "value": "5+",
+      "label": "Years",
+      "color": "purple"
+    },
+    {
+      "value": "100%",
+      "label": "Satisfied",
+      "color": "pink"
+    }
+  ],
+
+  "projects": [
+    {
+      "id": 1,
+      "title": "E-Commerce Platform",
+      "description": "A full-stack e-commerce solution with payment integration and real-time inventory management.",
+      "image": "https://picsum.photos/400/300?random=3",
+      "technologies": ["React", "Node.js", "MongoDB"],
+      "liveUrl": "https://example.com",
+      "githubUrl": "https://github.com/anuj/ecommerce"
+    },
+    {
+      "id": 2,
+      "title": "AI Chat Application",
+      "description": "An intelligent chatbot powered by GPT-4 with context awareness and multi-language support.",
+      "image": "https://picsum.photos/400/300?random=4",
+      "technologies": ["Python", "FastAPI", "OpenAI API"],
+      "liveUrl": "https://example.com",
+      "githubUrl": "https://github.com/anuj/ai-chat"
+    },
+    {
+      "id": 3,
+      "title": "Analytics Dashboard",
+      "description": "A comprehensive data visualization dashboard with real-time analytics and interactive charts.",
+      "image": "https://picsum.photos/400/300?random=5",
+      "technologies": ["Vue.js", "D3.js", "Firebase"],
+      "liveUrl": "https://example.com",
+      "githubUrl": "https://github.com/anuj/analytics"
+    }
+  ],
+
+  "skills": {
+    "frontend": [
+      {
+        "name": "React.js",
+        "proficiency": 95
+      },
+      {
+        "name": "Vue.js",
+        "proficiency": 85
+      },
+      {
+        "name": "TypeScript",
+        "proficiency": 90
+      },
+      {
+        "name": "Tailwind CSS",
+        "proficiency": 92
+      }
+    ],
+    "backend": [
+      {
+        "name": "Node.js",
+        "proficiency": 90
+      },
+      {
+        "name": "Python",
+        "proficiency": 88
+      },
+      {
+        "name": "Express.js",
+        "proficiency": 92
+      },
+      {
+        "name": "GraphQL",
+        "proficiency": 80
+      }
+    ],
+    "database": [
+      {
+        "name": "MongoDB",
+        "proficiency": 88
+      },
+      {
+        "name": "PostgreSQL",
+        "proficiency": 85
+      },
+      {
+        "name": "Firebase",
+        "proficiency": 80
+      },
+      {
+        "name": "Redis",
+        "proficiency": 75
+      }
+    ],
+    "tools": [
+      {
+        "name": "Git & GitHub",
+        "proficiency": 95
+      },
+      {
+        "name": "Docker",
+        "proficiency": 85
+      },
+      {
+        "name": "AWS",
+        "proficiency": 80
+      },
+      {
+        "name": "CI/CD",
+        "proficiency": 82
+      }
+    ]
+  },
+
+  "experience": [
+    {
+      "id": 1,
+      "title": "Senior Full Stack Developer",
+      "company": "Tech Company Inc.",
+      "duration": "2022 - Present",
+      "description": "Led development of multiple full-stack applications, mentored junior developers, and implemented best practices.",
+      "technologies": ["React", "Node.js", "MongoDB", "AWS"]
+    },
+    {
+      "id": 2,
+      "title": "Full Stack Developer",
+      "company": "Digital Solutions Ltd.",
+      "duration": "2020 - 2022",
+      "description": "Developed and maintained various web applications, improved application performance by 40%, and worked with cross-functional teams.",
+      "technologies": ["Vue.js", "Python", "PostgreSQL", "Docker"]
+    },
+    {
+      "id": 3,
+      "title": "Frontend Developer",
+      "company": "Creative Agency",
+      "duration": "2019 - 2020",
+      "description": "Created responsive web interfaces, optimized web performance, and collaborated with UI/UX designers.",
+      "technologies": ["React", "JavaScript", "CSS", "Tailwind"]
+    }
+  ],
+
+  "education": [
+    {
+      "id": 1,
+      "degree": "Bachelor of Technology",
+      "field": "Computer Science & Engineering",
+      "institution": "Delhi University",
+      "year": "2019"
+    }
+  ],
+
+  "testimonials": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "role": "CEO at Tech Company",
+      "text": "Anuj is an exceptional developer who delivered outstanding results for our project. Highly recommended!",
+      "image": "https://picsum.photos/100/100?random=6"
+    },
+    {
+      "id": 2,
+      "name": "Jane Smith",
+      "role": "Product Manager at Digital Solutions",
+      "text": "Working with Anuj was a pleasure. His attention to detail and problem-solving skills are outstanding.",
+      "image": "https://picsum.photos/100/100?random=7"
+    }
+  ]
+}
