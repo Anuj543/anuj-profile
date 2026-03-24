@@ -6,501 +6,1448 @@
     <title>Anuj Sharma - AI SEO & Performance Marketing Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="animations.css">
-</head>
-<body class="bg-slate-900 text-white overflow-x-hidden">
-    
-    <!-- Navigation -->
-    <nav id="navbar" class="fixed top-0 w-full bg-slate-900/80 backdrop-blur-md z-50 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div class="flex justify-between items-center">
-                <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-                    <i class="fas fa-chart-line mr-2"></i>Anuj Sharma
-                </h1>
-                <ul class="hidden md:flex space-x-8">
-                    <li><a href="#home" class="nav-link hover:text-blue-400 transition">Home</a></li>
-                    <li><a href="#about" class="nav-link hover:text-blue-400 transition">About</a></li>
-                    <li><a href="#projects" class="nav-link hover:text-blue-400 transition">Projects</a></li>
-                    <li><a href="#experience" class="nav-link hover:text-blue-400 transition">Experience</a></li>
-                    <li><a href="#skills" class="nav-link hover:text-blue-400 transition">Skills</a></li>
-                    <li><a href="#contact" class="nav-link hover:text-blue-400 transition">Contact</a></li>
-                </ul>
-                <button id="menu-btn" class="md:hidden text-2xl"><i class="fas fa-bars"></i></button>
-            </div>
-        </div>
-    </nav>
 
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden fixed top-20 left-0 w-full bg-slate-800 md:hidden z-40">
-        <ul class="flex flex-col space-y-4 p-4">
-            <li><a href="#home" class="block hover:text-blue-400">Home</a></li>
-            <li><a href="#about" class="block hover:text-blue-400">About</a></li>
-            <li><a href="#projects" class="block hover:text-blue-400">Projects</a></li>
-            <li><a href="#experience" class="block hover:text-blue-400">Experience</a></li>
-            <li><a href="#skills" class="block hover:text-blue-400">Skills</a></li>
-            <li><a href="#contact" class="block hover:text-blue-400">Contact</a></li>
+    <style>
+        /* ═══════════════════════════════════════
+           BASE & RESET
+        ═══════════════════════════════════════ */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #0f172a;
+            color: #fff;
+            overflow-x: hidden;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        /* ═══════════════════════════════════════
+           SCROLLBAR
+        ═══════════════════════════════════════ */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 3px; }
+
+        /* ═══════════════════════════════════════
+           NAV
+        ═══════════════════════════════════════ */
+        #navbar {
+            position: fixed; top: 0; width: 100%;
+            background: rgba(15,23,42,.85);
+            backdrop-filter: blur(14px);
+            z-index: 50;
+            border-bottom: 1px solid rgba(96,165,250,.1);
+            transition: all .3s;
+        }
+        .nav-link {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: .9rem;
+            font-weight: 500;
+            letter-spacing: .02em;
+            transition: color .25s;
+        }
+        .nav-link:hover { color: #60a5fa; }
+
+        /* ═══════════════════════════════════════
+           GRADIENT TEXT UTILITY
+        ═══════════════════════════════════════ */
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa, #a78bfa, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ═══════════════════════════════════════
+           HERO
+        ═══════════════════════════════════════ */
+        .hero-wrapper {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #0f172a;
+        }
+
+        /* Three.js canvas container */
+        #hero-3d-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        #hero-3d-canvas canvas {
+            display: block;
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        /* Radial vignette */
+        .hero-vignette {
+            position: absolute; inset: 0; z-index: 1; pointer-events: none;
+            background: radial-gradient(ellipse 80% 80% at 50% 50%,
+                transparent 20%,
+                rgba(15,23,42,.5) 60%,
+                rgba(15,23,42,.97) 100%);
+        }
+
+        /* Bottom fade */
+        .hero-bottom-fade {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            height: 200px; z-index: 2; pointer-events: none;
+            background: linear-gradient(to bottom, transparent, #0f172a);
+        }
+
+        /* CSS scanline texture */
+        .hero-scanlines {
+            position: absolute; inset: 0; z-index: 3; pointer-events: none;
+            background: repeating-linear-gradient(
+                to bottom, transparent, transparent 3px,
+                rgba(0,0,0,.04) 3px, rgba(0,0,0,.04) 4px);
+            opacity: .55;
+        }
+
+        /* HUD corner brackets */
+        .hero-hud-corner {
+            position: absolute; z-index: 4; pointer-events: none;
+            width: 56px; height: 56px; opacity: .4;
+        }
+        .hud-tl { top: 1.5rem; left: 1.5rem;
+            border-top: 1.5px solid #60a5fa; border-left: 1.5px solid #60a5fa; }
+        .hud-tr { top: 1.5rem; right: 1.5rem;
+            border-top: 1.5px solid #a78bfa; border-right: 1.5px solid #a78bfa; }
+        .hud-bl { bottom: 5rem; left: 1.5rem;
+            border-bottom: 1.5px solid #60a5fa; border-left: 1.5px solid #60a5fa; }
+        .hud-br { bottom: 5rem; right: 1.5rem;
+            border-bottom: 1.5px solid #a78bfa; border-right: 1.5px solid #a78bfa; }
+
+        /* Hero content layer */
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 5rem 1.5rem 4rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Badge pills */
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            padding: .28rem .9rem;
+            border-radius: 9999px;
+            font-size: .68rem;
+            font-weight: 600;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            border: 1px solid currentColor;
+            background: rgba(15,23,42,.55);
+            backdrop-filter: blur(8px);
+        }
+        .badge-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: currentColor;
+            animation: badgeBlink 2s ease-in-out infinite;
+        }
+        @keyframes badgeBlink {
+            0%,100% { opacity:1; } 50% { opacity:.25; }
+        }
+
+        /* Entrance animations */
+        @keyframes heroUp {
+            from { opacity:0; transform:translateY(36px); }
+            to   { opacity:1; transform:translateY(0); }
+        }
+        .anim-1 { animation: heroUp .9s cubic-bezier(.16,1,.3,1) .1s both; }
+        .anim-2 { animation: heroUp .9s cubic-bezier(.16,1,.3,1) .3s both; }
+        .anim-3 { animation: heroUp .9s cubic-bezier(.16,1,.3,1) .5s both; }
+        .anim-4 { animation: heroUp .9s cubic-bezier(.16,1,.3,1) .7s both; }
+
+        /* Floating metric cards */
+        .hero-metrics {
+            position: absolute;
+            bottom: 5.5rem;
+            left: 50%; transform: translateX(-50%);
+            z-index: 5; display: flex; gap: 1rem;
+            pointer-events: none;
+        }
+        .hero-metric {
+            display: flex; flex-direction: column; align-items: center;
+            background: rgba(15,23,42,.65);
+            border: 1px solid rgba(96,165,250,.2);
+            border-radius: .5rem;
+            padding: .5rem 1.1rem;
+            backdrop-filter: blur(8px);
+        }
+        .hero-metric:nth-child(1) { animation: mFloat 4s ease-in-out infinite; }
+        .hero-metric:nth-child(2) { animation: mFloat 4s ease-in-out infinite 1.3s; }
+        .hero-metric:nth-child(3) { animation: mFloat 4s ease-in-out infinite 2.6s; }
+        @keyframes mFloat {
+            0%,100% { transform:translateY(0); }
+            50%      { transform:translateY(-7px); }
+        }
+        .metric-val { font-size: 1.15rem; font-weight: 700; color: #60a5fa; }
+        .metric-lbl { font-size: .6rem; letter-spacing: .1em;
+            text-transform: uppercase; color: #94a3b8; }
+
+        /* ═══════════════════════════════════════
+           SECTIONS COMMON
+        ═══════════════════════════════════════ */
+        section { scroll-margin-top: 80px; }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        /* ═══════════════════════════════════════
+           CARDS
+        ═══════════════════════════════════════ */
+        .card {
+            background: #1e293b;
+            border: 1px solid rgba(96,165,250,.1);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: border-color .3s, box-shadow .3s, transform .3s;
+        }
+        .card:hover {
+            border-color: rgba(96,165,250,.35);
+            box-shadow: 0 0 28px rgba(96,165,250,.08);
+            transform: translateY(-3px);
+        }
+
+        /* project card image container */
+        .proj-img { height: 180px; overflow: hidden; background: #1e293b; }
+        .proj-img img {
+            width:100%; height:100%; object-fit:cover;
+            opacity:.8; transition: opacity .4s, transform .4s;
+        }
+        .proj-card:hover .proj-img img { opacity:1; transform:scale(1.06); }
+        .proj-card {
+            background:#1e293b; border-radius:1rem;
+            border:1px solid rgba(96,165,250,.1);
+            overflow:hidden;
+            transition: transform .3s, box-shadow .3s;
+        }
+        .proj-card:hover {
+            transform:translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0,0,0,.4);
+        }
+
+        /* skill bars */
+        .skill-bar-track {
+            width:100%; height:6px; background:#334155; border-radius:999px; margin-top:6px;
+        }
+        .skill-bar-fill {
+            height:100%; border-radius:999px;
+            transition: width 1.2s cubic-bezier(.16,1,.3,1);
+        }
+
+        /* stat cards */
+        .stat-card {
+            background: rgba(30,41,59,.7);
+            border: 1px solid rgba(96,165,250,.12);
+            border-radius: .75rem; padding: 1rem; text-align: center;
+            transition: border-color .3s, box-shadow .3s;
+        }
+        .stat-card:hover {
+            border-color: rgba(96,165,250,.4);
+            box-shadow: 0 0 20px rgba(96,165,250,.1);
+        }
+
+        /* timeline dot */
+        .timeline-dot {
+            width:12px; height:12px; border-radius:50%;
+            background:#3b82f6; flex-shrink:0; margin-top:6px;
+            box-shadow: 0 0 0 3px rgba(59,130,246,.25);
+        }
+
+        /* form inputs */
+        .form-input {
+            width:100%; padding:.85rem 1.1rem;
+            background:#1e293b; color:#fff;
+            border:1px solid rgba(96,165,250,.15); border-radius:.6rem;
+            outline:none; transition:border-color .25s, box-shadow .25s;
+            font-size:.95rem;
+        }
+        .form-input::placeholder { color:#475569; }
+        .form-input:focus {
+            border-color:rgba(96,165,250,.5);
+            box-shadow:0 0 0 3px rgba(96,165,250,.1);
+        }
+
+        /* contact icon box */
+        .contact-icon {
+            width:48px; height:48px; border-radius:.6rem;
+            display:flex; align-items:center; justify-content:center;
+            flex-shrink:0; font-size:1.1rem;
+        }
+
+        /* social link */
+        .social-btn {
+            width:46px; height:46px; border-radius:.6rem;
+            display:flex; align-items:center; justify-content:center;
+            background:#1e293b; border:1px solid rgba(96,165,250,.1);
+            color:#94a3b8; text-decoration:none; font-size:1.1rem;
+            transition: background .25s, color .25s, transform .2s;
+        }
+        .social-btn:hover { background:#3b82f6; color:#fff; transform:scale(1.1); }
+
+        /* tag pill */
+        .tag {
+            padding:.25rem .75rem; border-radius:999px;
+            font-size:.7rem; font-weight:600; border:1px solid;
+        }
+
+        /* mobile menu */
+        #mobile-menu {
+            display:none; position:fixed; top:72px; left:0; right:0;
+            background:#1e293b; border-top:1px solid rgba(96,165,250,.1);
+            z-index:45; padding:1rem;
+        }
+        #mobile-menu.open { display:block; }
+        #mobile-menu a { display:block; padding:.6rem .5rem; color:#94a3b8;
+            text-decoration:none; transition:color .2s; border-radius:.4rem; }
+        #mobile-menu a:hover { color:#60a5fa; background:rgba(96,165,250,.05); }
+
+        /* ═══════════════════════════════════════
+           RESPONSIVE
+        ═══════════════════════════════════════ */
+        @media(max-width:640px) {
+            .hud-tl, .hud-tr, .hud-bl, .hud-br { display:none; }
+            .hero-metrics { gap:.5rem; bottom:6rem; }
+            .metric-val { font-size:1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     NAVIGATION
+══════════════════════════════════════ -->
+<nav id="navbar">
+    <div style="max-width:1200px;margin:0 auto;padding:1rem 1.5rem;
+                display:flex;justify-content:space-between;align-items:center;">
+        <a href="#home" style="text-decoration:none;">
+            <span style="font-size:1.6rem;font-weight:700;background:linear-gradient(135deg,#60a5fa,#a78bfa);
+                         -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+                <i class="fas fa-chart-line" style="margin-right:.4rem;"></i>Anuj Sharma
+            </span>
+        </a>
+
+        <ul style="display:flex;gap:2rem;list-style:none;" class="hidden md:flex">
+            <li><a href="#home"       class="nav-link">Home</a></li>
+            <li><a href="#about"      class="nav-link">About</a></li>
+            <li><a href="#projects"   class="nav-link">Projects</a></li>
+            <li><a href="#experience" class="nav-link">Experience</a></li>
+            <li><a href="#skills"     class="nav-link">Skills</a></li>
+            <li><a href="#contact"    class="nav-link">Contact</a></li>
         </ul>
+
+        <button id="menu-btn" class="md:hidden"
+                style="background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer;">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+</nav>
+
+<!-- Mobile menu -->
+<div id="mobile-menu">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+</div>
+
+<!-- ══════════════════════════════════════
+     HERO
+══════════════════════════════════════ -->
+<section id="home">
+<div class="hero-wrapper">
+
+    <!-- ① Three.js canvas -->
+    <div id="hero-3d-canvas"></div>
+
+    <!-- ② Vignette -->
+    <div class="hero-vignette"></div>
+
+    <!-- ③ Scanlines -->
+    <div class="hero-scanlines"></div>
+
+    <!-- ④ Bottom fade -->
+    <div class="hero-bottom-fade"></div>
+
+    <!-- ⑤ HUD brackets -->
+    <div class="hero-hud-corner hud-tl"></div>
+    <div class="hero-hud-corner hud-tr"></div>
+    <div class="hero-hud-corner hud-bl"></div>
+    <div class="hero-hud-corner hud-br"></div>
+
+    <!-- ⑥ Content -->
+    <div class="hero-content">
+
+        <!-- Badge pills -->
+        <div class="anim-1" style="display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;margin-bottom:1.2rem;">
+            <span class="hero-badge" style="color:#60a5fa;border-color:rgba(96,165,250,.35);">
+                <span class="badge-dot"></span>Google Search
+            </span>
+            <span class="hero-badge" style="color:#a78bfa;border-color:rgba(167,139,250,.35);">
+                <span class="badge-dot" style="animation-delay:.5s;"></span>SGE / GEO
+            </span>
+            <span class="hero-badge" style="color:#f472b6;border-color:rgba(244,114,182,.35);">
+                <span class="badge-dot" style="animation-delay:1s;"></span>Perplexity AEO
+            </span>
+        </div>
+
+        <!-- Title -->
+        <h1 class="anim-2" style="font-size:clamp(2.4rem,7vw,5.5rem);font-weight:700;
+                                   line-height:1.08;letter-spacing:-.03em;margin-bottom:.8rem;">
+            <span style="display:block;color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.5);">AI SEO &amp;</span>
+            <span style="display:block;background:linear-gradient(135deg,#60a5fa 0%,#a78bfa 50%,#f472b6 100%);
+                         -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+                Generative Search Portfolio
+            </span>
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="anim-3" style="font-size:clamp(1rem,2.2vw,1.2rem);color:rgba(209,213,219,.88);
+                                  max-width:640px;margin:0 auto 2rem;line-height:1.7;">
+            AI SEO &amp; Performance Marketing Strategist with
+            <span style="color:#60a5fa;font-weight:600;">4+ years</span> of experience in
+            <span style="color:#c4b5fd;border-bottom:1.5px solid #7c3aed;">SXO, GEO, AEO</span>,
+            and paid media growth.
+        </p>
+
+        <!-- CTAs -->
+        <div class="anim-4" style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;margin-bottom:1.5rem;">
+            <a href="#projects"
+               style="padding:.85rem 2rem;background:rgba(37,99,235,.9);color:#fff;
+                      border-radius:999px;font-weight:700;text-decoration:none;font-size:.95rem;
+                      transition:all .25s;backdrop-filter:blur(4px);
+                      box-shadow:0 4px 20px rgba(59,130,246,.3);"
+               onmouseover="this.style.background='#3b82f6';this.style.transform='scale(1.05)'"
+               onmouseout="this.style.background='rgba(37,99,235,.9)';this.style.transform='scale(1)'">
+                View My Work
+            </a>
+            <a href="#contact"
+               style="padding:.85rem 2rem;border:2px solid rgba(96,165,250,.45);
+                      color:#60a5fa;border-radius:999px;font-weight:700;
+                      text-decoration:none;font-size:.95rem;transition:all .25s;backdrop-filter:blur(4px);"
+               onmouseover="this.style.background='rgba(96,165,250,.12)';this.style.transform='scale(1.04)'"
+               onmouseout="this.style.background='transparent';this.style.transform='scale(1)'">
+                Get In Touch
+            </a>
+        </div>
+
+        <!-- Scroll cue -->
+        <div style="animation:heroUp .9s 1.1s both cubic-bezier(.16,1,.3,1);">
+            <i class="fas fa-chevron-down"
+               style="font-size:1.3rem;color:#60a5fa;opacity:.55;
+                      animation:bounce 2s ease-in-out infinite;"></i>
+        </div>
     </div>
 
-    <!-- Hero Section -->
-    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-        <!-- Animated Background -->
-        <div class="absolute inset-0 -z-10 overflow-hidden">
-            <div id="canvas-container" class="w-full h-full"></div>
-            <div class="absolute inset-0 bg-gradient-to-b from-slate-900/0 via-slate-900/50 to-slate-900"></div>
+    <!-- ⑦ Floating metrics -->
+    <div class="hero-metrics">
+        <div class="hero-metric">
+            <span class="metric-val">60%+</span>
+            <span class="metric-lbl">Traffic Growth</span>
         </div>
+        <div class="hero-metric">
+            <span class="metric-val">35%</span>
+            <span class="metric-lbl">ROAS Lift</span>
+        </div>
+        <div class="hero-metric">
+            <span class="metric-val">4+</span>
+            <span class="metric-lbl">Yrs Experience</span>
+        </div>
+    </div>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center relative z-10">
-            <h2 class="hero-title text-5xl md:text-7xl font-bold mb-6 leading-tight">
-                <span class="block">AI SEO &</span>
-                <span class="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-                    Generative Search Portfolio
-                </span>
-            </h2>
-            <p class="hero-subtitle text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto">
-                AI SEO & Performance Marketing Strategist with 4+ years of experience in SXO, GEO, AEO, and paid media growth across Google and Meta.
-            </p>
-            <div class="hero-buttons flex flex-col sm:flex-row gap-4 justify-center mb-12">
-                <a href="#projects" class="px-8 py-4 bg-blue-500 hover:bg-blue-600 rounded-lg font-semibold transition transform hover:scale-105">
-                    View My Work
-                </a>
-                <a href="#contact" class="px-8 py-4 border-2 border-blue-400 hover:bg-blue-400/10 rounded-lg font-semibold transition">
-                    Get In Touch
-                </a>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════
+     ABOUT
+══════════════════════════════════════ -->
+<section id="about" style="padding:6rem 0;background:rgba(30,41,59,.5);">
+    <div style="max-width:1200px;margin:0 auto;padding:0 1.5rem;">
+
+        <h2 class="section-title"><span class="gradient-text">About Me</span></h2>
+
+        <div style="display:grid;grid-template-columns:1fr;gap:3rem;align-items:center;"
+             class="md:grid-cols-2">
+
+            <!-- Text -->
+            <div>
+                <p style="color:#cbd5e1;font-size:1.05rem;line-height:1.8;margin-bottom:1.2rem;">
+                    I'm a <span style="color:#60a5fa;font-weight:600;">Digital Marketing Expert</span>
+                    with 4+ years of experience building scalable search ecosystems across Google, LLMs,
+                    and zero-click environments. I specialise in
+                    <span style="color:#60a5fa;">Search Experience Optimization (SXO),
+                    Generative Engine Optimization (GEO), and Answer Engine Optimization (AEO)</span>.
+                </p>
+                <p style="color:#cbd5e1;font-size:1.05rem;line-height:1.8;margin-bottom:2rem;">
+                    Proven track record of increasing organic traffic by 60%+, reducing CPL by 20%,
+                    and improving ROAS by 35% through structured data, entity-driven content architecture,
+                    AI-powered workflows, technical SEO, and performance marketing execution.
+                </p>
+
+                <!-- Stats -->
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;">
+                    <div class="stat-card">
+                        <div style="font-size:1.7rem;font-weight:700;color:#60a5fa;">60%+</div>
+                        <div style="color:#64748b;font-size:.8rem;">Traffic Growth</div>
+                    </div>
+                    <div class="stat-card">
+                        <div style="font-size:1.7rem;font-weight:700;color:#a78bfa;">4+</div>
+                        <div style="color:#64748b;font-size:.8rem;">Years Experience</div>
+                    </div>
+                    <div class="stat-card">
+                        <div style="font-size:1.7rem;font-weight:700;color:#f472b6;">35%</div>
+                        <div style="color:#64748b;font-size:.8rem;">ROAS Improvement</div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Scroll Indicator -->
-            <div class="scroll-indicator mt-12 animate-bounce">
-                <i class="fas fa-chevron-down text-2xl text-blue-400"></i>
+            <!-- Photo -->
+            <div style="display:flex;justify-content:center;">
+                <div style="position:relative;max-width:340px;width:100%;">
+                    <!-- Glow ring behind photo -->
+                    <div style="position:absolute;inset:-3px;border-radius:1rem;
+                                background:linear-gradient(135deg,#3b82f6,#7c3aed,#ec4899);
+                                z-index:0;filter:blur(1px);opacity:.6;"></div>
+                    <img src="https://media.licdn.com/dms/image/v2/D5603AQHAAo1RMsDapg/profile-displayphoto-scale_400_400/B56ZygWA4XKkAg-/0/1772216653365?e=1775692800&v=beta&t=IqTcaddZ8lJCRPjIcZX0rh4e5xxScx_MDrUB_PcSvb0"
+                         alt="Anuj Sharma"
+                         style="position:relative;z-index:1;width:100%;border-radius:1rem;
+                                display:block;transition:transform .35s;"
+                         onmouseover="this.style.transform='scale(1.03)'"
+                         onmouseout="this.style.transform='scale(1)'">
+                </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- About Section -->
-    <section id="about" class="py-20 bg-slate-800/50 backdrop-blur">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h3 class="section-title text-4xl md:text-5xl font-bold mb-12 text-center">
-                <span class="gradient-text">About Me</span>
-            </h3>
+<!-- ══════════════════════════════════════
+     PROJECTS
+══════════════════════════════════════ -->
+<section id="projects" style="padding:6rem 0;background:#0f172a;">
+    <div style="max-width:1200px;margin:0 auto;padding:0 1.5rem;">
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <!-- About Content -->
-                <div class="about-content">
-                    <div class="space-y-6">
-                        <p class="text-gray-300 text-lg leading-relaxed fade-in">
-                            I'm a <span class="text-blue-400 font-semibold">Digital Marketing Expert</span> with 4+ years of experience building scalable search ecosystems across Google, LLMs, and zero-click environments. I specialize in <span class="text-blue-400">Search Experience Optimization (SXO), Generative Engine Optimization (GEO), and Answer Engine Optimization (AEO)</span>.
+        <h2 class="section-title"><span class="gradient-text">Featured Projects</span></h2>
+        <p style="text-align:center;color:#64748b;margin-top:-2rem;margin-bottom:3rem;">
+            Key project impact from SEO, GEO, AEO, and performance campaigns
+        </p>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;">
+
+            <!-- Project 1 -->
+            <div class="proj-card">
+                <div class="proj-img">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800"
+                         alt="Position Zero SEO Architecture">
+                </div>
+                <div style="padding:1.5rem;">
+                    <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:.6rem;">
+                        Position Zero SEO Architecture
+                    </h3>
+                    <p style="color:#94a3b8;font-size:.88rem;line-height:1.7;margin-bottom:1rem;">
+                        Structured high-intent service pages with an inverted pyramid model to
+                        improve zero-click and featured snippet visibility.
+                    </p>
+                    <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.2rem;">
+                        <span class="tag" style="color:#60a5fa;border-color:rgba(96,165,250,.25);
+                                                  background:rgba(96,165,250,.07);">SXO</span>
+                        <span class="tag" style="color:#60a5fa;border-color:rgba(96,165,250,.25);
+                                                  background:rgba(96,165,250,.07);">Technical SEO</span>
+                        <span class="tag" style="color:#60a5fa;border-color:rgba(96,165,250,.25);
+                                                  background:rgba(96,165,250,.07);">Schema Markup</span>
+                    </div>
+                    <a href="https://linkedin.com/in/anuj-sharma-seo" target="_blank"
+                       style="color:#60a5fa;text-decoration:none;font-size:.88rem;font-weight:600;">
+                        <i class="fab fa-linkedin" style="margin-right:.4rem;"></i>Case Study
+                    </a>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="proj-card">
+                <div class="proj-img">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"
+                         alt="Paid Media Scale & ROAS Growth">
+                </div>
+                <div style="padding:1.5rem;">
+                    <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:.6rem;">
+                        Paid Media Scale &amp; ROAS Growth
+                    </h3>
+                    <p style="color:#94a3b8;font-size:.88rem;line-height:1.7;margin-bottom:1rem;">
+                        Managed ₹25L+ monthly ad spend across Google and Meta, reducing CPL by 20%
+                        and increasing ROAS by 35%.
+                    </p>
+                    <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.2rem;">
+                        <span class="tag" style="color:#a78bfa;border-color:rgba(167,139,250,.25);
+                                                  background:rgba(167,139,250,.07);">Google Ads</span>
+                        <span class="tag" style="color:#a78bfa;border-color:rgba(167,139,250,.25);
+                                                  background:rgba(167,139,250,.07);">Meta Ads</span>
+                        <span class="tag" style="color:#a78bfa;border-color:rgba(167,139,250,.25);
+                                                  background:rgba(167,139,250,.07);">CRO</span>
+                    </div>
+                    <a href="https://linkedin.com/in/anuj-sharma-seo" target="_blank"
+                       style="color:#a78bfa;text-decoration:none;font-size:.88rem;font-weight:600;">
+                        <i class="fab fa-linkedin" style="margin-right:.4rem;"></i>Case Study
+                    </a>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="proj-card">
+                <div class="proj-img">
+                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800"
+                         alt="GEO + AEO Content System">
+                </div>
+                <div style="padding:1.5rem;">
+                    <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:.6rem;">
+                        GEO + AEO Content System
+                    </h3>
+                    <p style="color:#94a3b8;font-size:.88rem;line-height:1.7;margin-bottom:1rem;">
+                        Built FAQ schema hubs and modular knowledge blocks for AI summarization,
+                        refreshing 120+ pages via quarterly decay audits.
+                    </p>
+                    <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.2rem;">
+                        <span class="tag" style="color:#f472b6;border-color:rgba(244,114,182,.25);
+                                                  background:rgba(244,114,182,.07);">GEO</span>
+                        <span class="tag" style="color:#f472b6;border-color:rgba(244,114,182,.25);
+                                                  background:rgba(244,114,182,.07);">AEO</span>
+                        <span class="tag" style="color:#f472b6;border-color:rgba(244,114,182,.25);
+                                                  background:rgba(244,114,182,.07);">Entity SEO</span>
+                    </div>
+                    <a href="https://linkedin.com/in/anuj-sharma-seo" target="_blank"
+                       style="color:#f472b6;text-decoration:none;font-size:.88rem;font-weight:600;">
+                        <i class="fab fa-linkedin" style="margin-right:.4rem;"></i>Case Study
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- More on LinkedIn -->
+        <div style="text-align:center;margin-top:3rem;">
+            <a href="https://linkedin.com/in/amanmarketingpro" target="_blank"
+               style="display:inline-flex;align-items:center;gap:.6rem;padding:.9rem 2rem;
+                      border:2px solid rgba(96,165,250,.35);border-radius:.6rem;
+                      color:#60a5fa;text-decoration:none;font-weight:600;
+                      transition:all .25s;"
+               onmouseover="this.style.background='rgba(96,165,250,.1)'"
+               onmouseout="this.style.background='transparent'">
+                View More on LinkedIn <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     EXPERIENCE
+══════════════════════════════════════ -->
+<section id="experience" style="padding:6rem 0;background:rgba(30,41,59,.3);">
+    <div style="max-width:1200px;margin:0 auto;padding:0 1.5rem;">
+
+        <h2 class="section-title"><span class="gradient-text">Experience &amp; Credentials</span></h2>
+        <p style="text-align:center;color:#64748b;margin-top:-2rem;margin-bottom:3rem;">
+            Professional journey, education, and certifications
+        </p>
+
+        <div style="display:grid;grid-template-columns:1fr;gap:2rem;" class="lg:grid-cols-3">
+
+            <!-- Experience timeline -->
+            <div style="grid-column:span 2;" class="lg:col-span-2 space-y-6">
+
+                <div class="card">
+                    <div style="display:flex;gap:1rem;">
+                        <div class="timeline-dot"></div>
+                        <div style="flex:1;">
+                            <div style="display:flex;flex-wrap:wrap;justify-content:space-between;
+                                        align-items:flex-start;gap:.5rem;margin-bottom:.5rem;">
+                                <div>
+                                    <h3 style="font-size:1.15rem;font-weight:700;">SEO Manager</h3>
+                                    <p style="color:#60a5fa;font-weight:600;font-size:.9rem;">
+                                        Durapid Technologies
+                                    </p>
+                                </div>
+                                <span style="background:rgba(59,130,246,.1);color:#60a5fa;
+                                             padding:.25rem .75rem;border-radius:999px;
+                                             font-size:.75rem;font-weight:600;border:1px solid rgba(96,165,250,.2);">
+                                    Nov 2024 – Present
+                                </span>
+                            </div>
+                            <ul style="color:#94a3b8;font-size:.9rem;line-height:1.8;
+                                       list-style:none;padding:0;">
+                                <li style="padding:.15rem 0;">→ Improved crawl efficiency by 40% and reduced indexing delays by 65%.</li>
+                                <li style="padding:.15rem 0;">→ Implemented FAQ &amp; HowTo schema for zero-click &amp; featured snippet visibility.</li>
+                                <li style="padding:.15rem 0;">→ Increased organic blog traffic by 25% MoM with AI-driven topic gap analysis.</li>
+                                <li style="padding:.15rem 0;">→ Improved Core Web Vitals — LCP under 2 seconds across 30+ pages.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div style="display:flex;gap:1rem;">
+                        <div class="timeline-dot" style="background:#7c3aed;box-shadow:0 0 0 3px rgba(124,58,237,.25);"></div>
+                        <div style="flex:1;">
+                            <div style="display:flex;flex-wrap:wrap;justify-content:space-between;
+                                        align-items:flex-start;gap:.5rem;margin-bottom:.5rem;">
+                                <div>
+                                    <h3 style="font-size:1.15rem;font-weight:700;">Digital Marketing Lead</h3>
+                                    <p style="color:#a78bfa;font-weight:600;font-size:.9rem;">Satnam Webtech</p>
+                                </div>
+                                <span style="background:rgba(124,58,237,.1);color:#a78bfa;
+                                             padding:.25rem .75rem;border-radius:999px;
+                                             font-size:.75rem;font-weight:600;border:1px solid rgba(167,139,250,.2);">
+                                    Jan 2022 – Sep 2024
+                                </span>
+                            </div>
+                            <ul style="color:#94a3b8;font-size:.9rem;line-height:1.8;list-style:none;padding:0;">
+                                <li style="padding:.15rem 0;">→ Managed ₹25L+ monthly ad spend across Google Ads and Meta Ads.</li>
+                                <li style="padding:.15rem 0;">→ Reduced CPL by 20% using AI bid strategies and intent segmentation.</li>
+                                <li style="padding:.15rem 0;">→ Increased ROAS by 35% through UX-focused landing page optimization.</li>
+                                <li style="padding:.15rem 0;">→ Built SEO cluster strategy delivering 60% traffic growth; reduced content turnaround by 40%.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Sidebar: education + certs -->
+            <div style="display:flex;flex-direction:column;gap:1.5rem;">
+
+                <div class="card">
+                    <h4 style="font-size:1rem;font-weight:700;margin-bottom:1rem;color:#60a5fa;">
+                        <i class="fas fa-graduation-cap" style="margin-right:.5rem;"></i>Education
+                    </h4>
+                    <p style="font-weight:600;color:#e2e8f0;">MBA (Data Engineering)</p>
+                    <p style="color:#60a5fa;font-size:.9rem;margin:.25rem 0;">Manipal University, Jaipur</p>
+                    <p style="color:#64748b;font-size:.85rem;">Expected 2025 · GPA: 8.5</p>
+                </div>
+
+                <div class="card">
+                    <h4 style="font-size:1rem;font-weight:700;margin-bottom:1rem;color:#a78bfa;">
+                        <i class="fas fa-certificate" style="margin-right:.5rem;"></i>Certifications
+                    </h4>
+                    <ul style="list-style:none;padding:0;color:#94a3b8;font-size:.88rem;line-height:2;">
+                        <li><i class="fas fa-check" style="color:#22c55e;margin-right:.5rem;font-size:.7rem;"></i>Google Ads Certified (Search &amp; Display)</li>
+                        <li><i class="fas fa-check" style="color:#22c55e;margin-right:.5rem;font-size:.7rem;"></i>Google Analytics 4 Advanced</li>
+                        <li><i class="fas fa-check" style="color:#22c55e;margin-right:.5rem;font-size:.7rem;"></i>Meta Blueprint (Media Buying)</li>
+                        <li><i class="fas fa-check" style="color:#22c55e;margin-right:.5rem;font-size:.7rem;"></i>SEO Technical Mastery – SEMrush</li>
+                        <li><i class="fas fa-check" style="color:#22c55e;margin-right:.5rem;font-size:.7rem;"></i>AI for PPC – Coursera</li>
+                        <li><i class="fas fa-check" style="color:#22c55e;margin-right:.5rem;font-size:.7rem;"></i>Prompt Engineering for Marketers</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SKILLS
+══════════════════════════════════════ -->
+<section id="skills" style="padding:6rem 0;background:#0f172a;">
+    <div style="max-width:1200px;margin:0 auto;padding:0 1.5rem;">
+
+        <h2 class="section-title"><span class="gradient-text">Skills &amp; Technologies</span></h2>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2rem;">
+
+            <!-- Search Strategy -->
+            <div class="card">
+                <h4 style="font-size:1rem;font-weight:700;margin-bottom:1.2rem;color:#60a5fa;">
+                    <i class="fas fa-search" style="margin-right:.5rem;"></i>Search Strategy
+                </h4>
+                <div style="display:flex;flex-direction:column;gap:1rem;">
+                    <div>
+                        <div style="display:flex;justify-content:space-between;font-size:.85rem;font-weight:600;margin-bottom:4px;">
+                            <span>SXO</span><span style="color:#64748b;">95%</span>
+                        </div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" style="width:95%;background:linear-gradient(90deg,#3b82f6,#60a5fa);"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;font-size:.85rem;font-weight:600;margin-bottom:4px;">
+                            <span>GEO</span><span style="color:#64748b;">85%</span>
+                        </div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" style="width:85%;background:linear-gradient(90deg,#3b82f6,#60a5fa);"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;font-size:.85rem;font-weight:600;margin-bottom:4px;">
+                            <span>AEO</span><span style="color:#64748b;">90%</span>
+                        </div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" style="width:90%;background:linear-gradient(90deg,#3b82f6,#60a5fa);"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;font-size:.85rem;font-weight:600;margin-bottom:4px;">
+                            <span>Entity SEO</span><span style="color:#64748b;">92%</span>
+                        </div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" style="width:92%;background:linear-gradient(90deg,#3b82f6,#60a5fa);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technical SEO -->
+            <div class="card">
+                <h4 style="font-size:1rem;font-weight:700;margin-bottom:1.2rem;color:#a78bfa;">
+                    <i class="fas fa-cogs" style="margin-right:.5rem;"></i>Technical SEO
+                </h4>
+                <div style="display:flex;flex-direction:column;gap:1rem;">
+                    <div>
+                        <div style="display:flex;justify-content:space-between;font-size:.85rem;font-weight:600;margin-bottom:4px;">
+                            <span>Crawlability &amp; Indexing</span><span style="color:#64748b;">90%</span>
+                        </div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" style="width:90%;background:linear-gradient(90deg,#7c3aed,#a78bfa);"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;font-size:.85rem;font-weight:600;margin-bottom:4px;">
+                            <span>Core Web Vitals</span><span style="color:#64748b;">88%</span>
+                        </div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" style="width:88%;background:linear-gradient(90deg,#7c3aed,#a78bfa);"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;font-size:.85rem;font-weight:600;margin-bottom:4px;">
+                            <span>Schema Markup</span><span style="color:#64748b;">92%</span>
+                        </div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" style="width:92%;background:linear-gradient(90deg,#7c3aed,#a78bfa);"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;font-size:.85rem;font-weight:600;margin-bottom:4px;">
+                            <span>Programmatic SEO</span><span style="color:#64748b;">80%</span>
+                        </div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" style="width:80%;background:linear-gradient(90deg,#7c3aed,#a78bfa);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Marketing -->
+            <div class="card">
+                <h4 style="font-size:1rem;font-weight:700;margin-bottom:1.2rem;color:#f472b6;">
+                    <i class="fas fa-bullhorn" style="margin-right:.5rem;"></i>Performance Marketing
+                </h4>
+                <div style="display:flex;flex-direction:column;gap:1rem;">
+                    <div>
+                        <div style="display:flex;justify-content:space-between;font-size:.85rem;font-weight:600;margin-bottom:4px;">
+                            <span>Google Ads</span><span style="color:#64748b;">88%</span>
+                        </div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" style="width:88%;background:linear-gradient(90deg,#be185d,#f472b6);"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;font-size:.85rem;font-weight:600;margin-bottom:4px;">
+                            <span>Meta Ads</span><span style="color:#64748b;">85%</span>
+                        </div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" style="width:85%;background:linear-gradient(90deg,#be185d,#f472b6);"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;font-size:.85rem;font-weight:600;margin-bottom:4px;">
+                            <span>CRO</span><span style="color:#64748b;">80%</span>
+                        </div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" style="width:80%;background:linear-gradient(90deg,#be185d,#f472b6);"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;font-size:.85rem;font-weight:600;margin-bottom:4px;">
+                            <span>Predictive Bid Optimization</span><span style="color:#64748b;">75%</span>
+                        </div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" style="width:75%;background:linear-gradient(90deg,#be185d,#f472b6);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics & Automation -->
+            <div class="card">
+                <h4 style="font-size:1rem;font-weight:700;margin-bottom:1.2rem;color:#fbbf24;">
+                    <i class="fas fa-robot" style="margin-right:.5rem;"></i>Analytics &amp; Automation
+                </h4>
+                <div style="display:flex;flex-direction:column;gap:1rem;">
+                    <div>
+                        <div style="display:flex;justify-content:space-between;font-size:.85rem;font-weight:600;margin-bottom:4px;">
+                            <span>GA4 &amp; GTM</span><span style="color:#64748b;">95%</span>
+                        </div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" style="width:95%;background:linear-gradient(90deg,#b45309,#fbbf24);"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;font-size:.85rem;font-weight:600;margin-bottom:4px;">
+                            <span>SEMrush &amp; Ahrefs</span><span style="color:#64748b;">85%</span>
+                        </div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" style="width:85%;background:linear-gradient(90deg,#b45309,#fbbf24);"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;font-size:.85rem;font-weight:600;margin-bottom:4px;">
+                            <span>Screaming Frog &amp; Surfer</span><span style="color:#64748b;">80%</span>
+                        </div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" style="width:80%;background:linear-gradient(90deg,#b45309,#fbbf24);"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;font-size:.85rem;font-weight:600;margin-bottom:4px;">
+                            <span>Zapier &amp; N8N</span><span style="color:#64748b;">82%</span>
+                        </div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" style="width:82%;background:linear-gradient(90deg,#b45309,#fbbf24);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CONTACT
+══════════════════════════════════════ -->
+<section id="contact" style="padding:6rem 0;background:rgba(30,41,59,.3);">
+    <div style="max-width:1200px;margin:0 auto;padding:0 1.5rem;">
+
+        <h2 class="section-title"><span class="gradient-text">Get In Touch</span></h2>
+        <p style="text-align:center;color:#64748b;margin-top:-2rem;margin-bottom:3rem;">
+            Looking for SEO, GEO, AEO, and performance growth? Let's connect.
+        </p>
+
+        <div style="display:grid;grid-template-columns:1fr;gap:3rem;" class="md:grid-cols-2">
+
+            <!-- Form -->
+            <div class="card">
+                <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:1.5rem;">Send a Message</h3>
+                <form id="contactForm" style="display:flex;flex-direction:column;gap:1rem;">
+                    <input type="text"  class="form-input" placeholder="Your Name" required>
+                    <input type="email" class="form-input" placeholder="Your Email" required>
+                    <input type="text"  class="form-input" placeholder="Subject" required>
+                    <textarea class="form-input" placeholder="Your Message" rows="5" required
+                              style="resize:vertical;"></textarea>
+                    <button type="submit"
+                            style="padding:.95rem;background:linear-gradient(135deg,#3b82f6,#7c3aed);
+                                   color:#fff;border:none;border-radius:.6rem;font-weight:700;
+                                   font-size:.95rem;cursor:pointer;transition:all .25s;
+                                   box-shadow:0 4px 20px rgba(59,130,246,.3);"
+                            onmouseover="this.style.opacity='.88';this.style.transform='scale(1.01)'"
+                            onmouseout="this.style.opacity='1';this.style.transform='scale(1)'">
+                        Send Message &nbsp;<i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Contact info -->
+            <div style="display:flex;flex-direction:column;gap:1.5rem;">
+
+                <div style="display:flex;align-items:flex-start;gap:1rem;">
+                    <div class="contact-icon" style="background:rgba(59,130,246,.15);">
+                        <i class="fas fa-envelope" style="color:#60a5fa;"></i>
+                    </div>
+                    <div>
+                        <h4 style="font-weight:600;margin-bottom:.25rem;">Email</h4>
+                        <a href="mailto:anujsharma7425@gmail.com"
+                           style="color:#64748b;text-decoration:none;font-size:.9rem;transition:color .2s;"
+                           onmouseover="this.style.color='#60a5fa'"
+                           onmouseout="this.style.color='#64748b'">
+                            anujsharma7425@gmail.com
+                        </a>
+                    </div>
+                </div>
+
+                <div style="display:flex;align-items:flex-start;gap:1rem;">
+                    <div class="contact-icon" style="background:rgba(124,58,237,.15);">
+                        <i class="fas fa-phone" style="color:#a78bfa;"></i>
+                    </div>
+                    <div>
+                        <h4 style="font-weight:600;margin-bottom:.25rem;">Phone</h4>
+                        <a href="tel:+918306398990"
+                           style="color:#64748b;text-decoration:none;font-size:.9rem;transition:color .2s;"
+                           onmouseover="this.style.color='#a78bfa'"
+                           onmouseout="this.style.color='#64748b'">
+                            +91-8306398990
+                        </a>
+                    </div>
+                </div>
+
+                <div style="display:flex;align-items:flex-start;gap:1rem;">
+                    <div class="contact-icon" style="background:rgba(236,72,153,.15);">
+                        <i class="fas fa-map-marker-alt" style="color:#f472b6;"></i>
+                    </div>
+                    <div>
+                        <h4 style="font-weight:600;margin-bottom:.25rem;">Focus</h4>
+                        <p style="color:#64748b;font-size:.9rem;">
+                            AI SEO, GEO, AEO, Performance Marketing
                         </p>
-                        <p class="text-gray-300 text-lg leading-relaxed fade-in">
-                            Proven track record of increasing organic traffic by 60%+, reducing CPL by 20%, and improving ROAS by 35% through structured data, entity-driven content architecture, AI-powered workflows, technical SEO, and performance marketing execution.
-                        </p>
-
-                        <!-- Stats -->
-                        <div class="grid grid-cols-3 gap-4 mt-8">
-                            <div class="stat-card">
-                                <div class="text-3xl font-bold text-blue-400">60%+</div>
-                                <div class="text-gray-400">Traffic Growth</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="text-3xl font-bold text-purple-400">4+</div>
-                                <div class="text-gray-400">Years Experience</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="text-3xl font-bold text-pink-400">35%</div>
-                                <div class="text-gray-400">ROAS Improvement</div>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
-                <!-- About Image with Canvas -->
-                <div class="about-image relative">
-                    <div id="about-canvas" style="width: 100%; height: 450px; margin-bottom: 20px;"></div>
-                    <img src="https://picsum.photos/400/450?random=2" alt="Anuj Sharma" class="rounded-lg shadow-2xl transition transform hover:scale-105">
+                <!-- Social links -->
+                <div style="border-top:1px solid rgba(96,165,250,.1);padding-top:1.5rem;">
+                    <h4 style="font-weight:600;margin-bottom:1rem;">Connect With Me</h4>
+                    <div style="display:flex;gap:.75rem;">
+                        <a href="https://linkedin.com/in/amanmarketingpro" target="_blank" class="social-btn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="mailto:anujsharma7425@gmail.com" class="social-btn">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        <a href="tel:+918306398990" class="social-btn">
+                            <i class="fas fa-phone"></i>
+                        </a>
+                        <a href="#about" class="social-btn">
+                            <i class="fas fa-user"></i>
+                        </a>
+                    </div>
                 </div>
+
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="py-20 bg-slate-900">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h3 class="section-title text-4xl md:text-5xl font-bold mb-4 text-center">
-                <span class="gradient-text">Featured Projects</span>
-            </h3>
-            <p class="text-center text-gray-400 mb-12">Key project impact from SEO, GEO, AEO, and performance campaigns</p>
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
+<footer style="background:#020617;border-top:1px solid rgba(96,165,250,.08);padding:2rem 1.5rem;">
+    <div style="max-width:1200px;margin:0 auto;
+                display:flex;flex-wrap:wrap;justify-content:space-between;
+                align-items:center;gap:1rem;">
+        <p style="color:#475569;font-size:.85rem;">© 2026 Anuj Sharma. All rights reserved.</p>
+        <p style="color:#334155;font-size:.8rem;">AI SEO &amp; Performance Marketing Strategist · SXO · GEO · AEO</p>
+    </div>
+</footer>
 
-            <!-- Project Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Project 1 -->
-                <div class="project-card group bg-slate-800 rounded-lg overflow-hidden shadow-lg transition transform hover:scale-105 hover:shadow-2xl">
-                    <div class="project-image overflow-hidden h-48 bg-gradient-to-br from-blue-500 to-purple-600">
-                        <img src="https://picsum.photos/400/300?random=3" alt="Project 1" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
-                    </div>
-                    <div class="p-6">
-                        <h4 class="text-2xl font-bold mb-2">Position Zero SEO Architecture</h4>
-                        <p class="text-gray-400 mb-4">Structured high-intent service pages with an inverted pyramid model to improve zero-click and featured snippet visibility.</p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="badge">SXO</span>
-                            <span class="badge">Technical SEO</span>
-                            <span class="badge">Schema Markup</span>
-                        </div>
-                        <div class="flex gap-4">
-                            <a href="https://linkedin.com/in/amanmarketingpro" class="hover:text-blue-400"><i class="fab fa-linkedin"></i> Case Study</a>
-                        </div>
-                    </div>
-                </div>
+<!-- ══════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════ -->
+<script>
+/* ─── Mobile menu toggle ────────────────── */
+document.getElementById('menu-btn').addEventListener('click', function () {
+    document.getElementById('mobile-menu').classList.toggle('open');
+});
+document.querySelectorAll('#mobile-menu a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('mobile-menu').classList.remove('open'));
+});
 
-                <!-- Project 2 -->
-                <div class="project-card group bg-slate-800 rounded-lg overflow-hidden shadow-lg transition transform hover:scale-105 hover:shadow-2xl">
-                    <div class="project-image overflow-hidden h-48 bg-gradient-to-br from-purple-500 to-pink-600">
-                        <img src="https://picsum.photos/400/300?random=4" alt="Project 2" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
-                    </div>
-                    <div class="p-6">
-                        <h4 class="text-2xl font-bold mb-2">Paid Media Scale & ROAS Growth</h4>
-                        <p class="text-gray-400 mb-4">Managed 25L+ monthly ad spend across Google and Meta, reducing CPL by 20% and increasing ROAS by 35%.</p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="badge">Google Ads</span>
-                            <span class="badge">Meta Ads</span>
-                            <span class="badge">CRO</span>
-                        </div>
-                        <div class="flex gap-4">
-                            <a href="https://linkedin.com/in/amanmarketingpro" class="hover:text-blue-400"><i class="fab fa-linkedin"></i> Case Study</a>
-                        </div>
-                    </div>
-                </div>
+/* ─── Smooth scroll for nav links ────────── */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+});
 
-                <!-- Project 3 -->
-                <div class="project-card group bg-slate-800 rounded-lg overflow-hidden shadow-lg transition transform hover:scale-105 hover:shadow-2xl">
-                    <div class="project-image overflow-hidden h-48 bg-gradient-to-br from-pink-500 to-blue-600">
-                        <img src="https://picsum.photos/400/300?random=5" alt="Project 3" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
-                    </div>
-                    <div class="p-6">
-                        <h4 class="text-2xl font-bold mb-2">GEO + AEO Content System</h4>
-                        <p class="text-gray-400 mb-4">Built FAQ schema hubs and modular knowledge blocks for AI summarization, refreshing 120+ pages via quarterly decay audits.</p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="badge">GEO</span>
-                            <span class="badge">AEO</span>
-                            <span class="badge">Entity SEO</span>
-                        </div>
-                        <div class="flex gap-4">
-                            <a href="https://linkedin.com/in/amanmarketingpro" class="hover:text-blue-400"><i class="fab fa-linkedin"></i> Case Study</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+/* ─── Contact form handler ──────────────── */
+document.getElementById('contactForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const btn = this.querySelector('button[type=submit]');
+    btn.textContent = '✓ Sent!';
+    btn.style.background = 'linear-gradient(135deg,#16a34a,#22c55e)';
+    setTimeout(() => {
+        btn.innerHTML = 'Send Message &nbsp;<i class="fas fa-paper-plane"></i>';
+        btn.style.background = 'linear-gradient(135deg,#3b82f6,#7c3aed)';
+        this.reset();
+    }, 3000);
+});
 
-            <!-- View All Projects -->
-            <div class="text-center mt-12">
-                <a href="https://linkedin.com/in/amanmarketingpro" class="inline-block px-8 py-4 border-2 border-blue-400 hover:bg-blue-400/10 rounded-lg font-semibold transition">
-                    View More on LinkedIn <i class="fas fa-arrow-right ml-2"></i>
-                </a>
-            </div>
-        </div>
-    </section>
+/* ─── CSS bounce keyframe ───────────────── */
+const style = document.createElement('style');
+style.textContent = `@keyframes bounce {
+  0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }`;
+document.head.appendChild(style);
+</script>
 
-    <!-- Experience & Credentials Section -->
-    <section id="experience" class="py-20 bg-slate-900">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h3 class="section-title text-4xl md:text-5xl font-bold mb-4 text-center">
-                <span class="gradient-text">Experience & Credentials</span>
-            </h3>
-            <p class="text-center text-gray-400 mb-12">Professional journey, education, and certifications from my resume</p>
+<!-- ══════════════════════════════════════
+     THREE.JS — HOLOGRAPHIC AI BRAIN
+══════════════════════════════════════ -->
+<script>
+(function () {
+    "use strict";
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div class="lg:col-span-2 space-y-6">
-                    <div class="project-card bg-slate-800 rounded-lg p-6 border border-slate-700">
-                        <h4 class="text-2xl font-bold mb-1">SEO Manager</h4>
-                        <p class="text-blue-400 font-semibold mb-1">Durapid Technologies</p>
-                        <p class="text-gray-400 mb-4">Nov 2024 - Present</p>
-                        <ul class="text-gray-300 space-y-2 list-disc pl-5">
-                            <li>Improved crawl efficiency by 40% and reduced indexing delays by 65% through technical SEO overhaul.</li>
-                            <li>Implemented FAQ and HowTo schema for zero-click and featured snippet visibility.</li>
-                            <li>Increased organic blog traffic by 25% MoM with AI-driven topic gap analysis.</li>
-                            <li>Improved Core Web Vitals, including LCP under 2 seconds, across 30+ pages.</li>
-                        </ul>
-                    </div>
+    /* Guard: only run if Three.js is loaded */
+    if (typeof THREE === "undefined") return;
 
-                    <div class="project-card bg-slate-800 rounded-lg p-6 border border-slate-700">
-                        <h4 class="text-2xl font-bold mb-1">Digital Marketing Lead</h4>
-                        <p class="text-blue-400 font-semibold mb-1">Satnam Webtech</p>
-                        <p class="text-gray-400 mb-4">Jan 2022 - Sep 2024</p>
-                        <ul class="text-gray-300 space-y-2 list-disc pl-5">
-                            <li>Managed 25L+ monthly ad spend across Google Ads and Meta Ads channels.</li>
-                            <li>Reduced CPL by 20% using AI bid strategies and intent segmentation.</li>
-                            <li>Increased ROAS by 35% through UX-focused landing page optimization.</li>
-                            <li>Built SEO cluster strategy delivering 60% traffic growth and reduced content turnaround by 40% with AI workflows.</li>
-                        </ul>
-                    </div>
-                </div>
+    /* ─── Config ──────────────────────────── */
+    const CFG = {
+        particleCount   : 180,
+        particleSpread  : 3.2,
+        connectionThresh: 1.6,
+        maxLines        : 280,
+        COLORS: [0x4488ff, 0x8855ff, 0xff44aa, 0x44ddff, 0xaaaaff],
+    };
 
-                <div class="space-y-6">
-                    <div class="project-card bg-slate-800 rounded-lg p-6 border border-slate-700">
-                        <h4 class="text-xl font-bold mb-3">Education</h4>
-                        <p class="text-gray-200 font-semibold">MBA (Data Engineering)</p>
-                        <p class="text-blue-400">Manipal University, Jaipur</p>
-                        <p class="text-gray-400">Expected 2025 | GPA: 8.5</p>
-                    </div>
+    /* ─── Wait for DOM ─────────────────────── */
+    document.addEventListener("DOMContentLoaded", () => {
+        const container = document.getElementById("hero-3d-canvas");
+        if (!container) return;
+        new HoloBrain(container);
+    });
 
-                    <div class="project-card bg-slate-800 rounded-lg p-6 border border-slate-700">
-                        <h4 class="text-xl font-bold mb-3">Certifications</h4>
-                        <ul class="text-gray-300 space-y-2 list-disc pl-5">
-                            <li>Google Ads Certified (Search & Display)</li>
-                            <li>Google Analytics 4 Advanced</li>
-                            <li>Meta Blueprint (Media Buying)</li>
-                            <li>SEO Technical Mastery - SEMrush</li>
-                            <li>AI for PPC - Coursera</li>
-                            <li>Prompt Engineering for Marketers</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    /* ─── Main class ───────────────────────── */
+    class HoloBrain {
+        constructor(el) {
+            this.el = el;
+            this.W  = el.clientWidth;
+            this.H  = el.clientHeight;
+            this.mouse       = { x: 0, y: 0 };
+            this.targetRot   = { x: 0, y: 0 };
+            this.currentRot  = { x: 0, y: 0 };
+            this.scrollY     = 0;
+            this.clock       = new THREE.Clock();
 
-    <!-- Skills Section -->
-    <section id="skills" class="py-20 bg-slate-800/50 backdrop-blur">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h3 class="section-title text-4xl md:text-5xl font-bold mb-12 text-center">
-                <span class="gradient-text">Skills & Technologies</span>
-            </h3>
+            this._initRenderer();
+            this._initScene();
+            this._initCamera();
+            this._buildLights();
+            this._buildBrain();
+            this._buildParticles();
+            this._buildRings();
+            this._buildCubes();
+            this._buildStars();
+            this._buildScan();
+            this._bindEvents();
+            this._loop();
+        }
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Search Strategy -->
-                <div class="skill-category">
-                    <h4 class="text-xl font-bold mb-6 flex items-center">
-                        <i class="fas fa-search text-blue-400 mr-3"></i>Search Strategy
-                    </h4>
-                    <div class="space-y-3">
-                        <div class="skill-item">
-                            <span class="text-sm font-semibold">SXO</span>
-                            <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
-                                <div class="bg-blue-500 h-2 rounded-full" style="width: 95%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="text-sm font-semibold">GEO</span>
-                            <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
-                                <div class="bg-blue-500 h-2 rounded-full" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="text-sm font-semibold">AEO</span>
-                            <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
-                                <div class="bg-blue-500 h-2 rounded-full" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="text-sm font-semibold">Entity SEO</span>
-                            <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
-                                <div class="bg-blue-500 h-2 rounded-full" style="width: 92%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        /* ── Renderer ──────────────────────── */
+        _initRenderer() {
+            this.renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true });
+            this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            this.renderer.setSize(this.W, this.H);
+            this.renderer.setClearColor(0x000000, 0);
+            this.el.appendChild(this.renderer.domElement);
+        }
 
-                <!-- Technical SEO -->
-                <div class="skill-category">
-                    <h4 class="text-xl font-bold mb-6 flex items-center">
-                        <i class="fas fa-cogs text-purple-400 mr-3"></i>Technical SEO
-                    </h4>
-                    <div class="space-y-3">
-                        <div class="skill-item">
-                            <span class="text-sm font-semibold">Crawlability & Indexing</span>
-                            <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
-                                <div class="bg-purple-500 h-2 rounded-full" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="text-sm font-semibold">Core Web Vitals</span>
-                            <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
-                                <div class="bg-purple-500 h-2 rounded-full" style="width: 88%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="text-sm font-semibold">Schema Markup</span>
-                            <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
-                                <div class="bg-purple-500 h-2 rounded-full" style="width: 92%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="text-sm font-semibold">Programmatic SEO</span>
-                            <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
-                                <div class="bg-purple-500 h-2 rounded-full" style="width: 80%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        /* ── Scene ─────────────────────────── */
+        _initScene() {
+            this.scene  = new THREE.Scene();
+            this.group  = new THREE.Group(); // master group — scroll + mouse
+            this.scene.add(this.group);
+        }
 
-                <!-- Performance Marketing -->
-                <div class="skill-category">
-                    <h4 class="text-xl font-bold mb-6 flex items-center">
-                        <i class="fas fa-bullhorn text-pink-400 mr-3"></i>Performance Marketing
-                    </h4>
-                    <div class="space-y-3">
-                        <div class="skill-item">
-                            <span class="text-sm font-semibold">Google Ads</span>
-                            <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
-                                <div class="bg-pink-500 h-2 rounded-full" style="width: 88%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="text-sm font-semibold">Meta Ads</span>
-                            <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
-                                <div class="bg-pink-500 h-2 rounded-full" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="text-sm font-semibold">CRO</span>
-                            <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
-                                <div class="bg-pink-500 h-2 rounded-full" style="width: 80%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="text-sm font-semibold">Predictive Bid Optimization</span>
-                            <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
-                                <div class="bg-pink-500 h-2 rounded-full" style="width: 75%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        /* ── Camera ────────────────────────── */
+        _initCamera() {
+            this.cam = new THREE.PerspectiveCamera(52, this.W / this.H, 0.1, 400);
+            this.cam.position.set(0, 0, 7);
+        }
 
-                <!-- Analytics & Automation -->
-                <div class="skill-category">
-                    <h4 class="text-xl font-bold mb-6 flex items-center">
-                        <i class="fas fa-robot text-yellow-400 mr-3"></i>Analytics & Automation
-                    </h4>
-                    <div class="space-y-3">
-                        <div class="skill-item">
-                            <span class="text-sm font-semibold">GA4 & GTM</span>
-                            <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
-                                <div class="bg-yellow-500 h-2 rounded-full" style="width: 95%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="text-sm font-semibold">SEMrush & Ahrefs</span>
-                            <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
-                                <div class="bg-yellow-500 h-2 rounded-full" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="text-sm font-semibold">Screaming Frog & Surfer SEO</span>
-                            <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
-                                <div class="bg-yellow-500 h-2 rounded-full" style="width: 80%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="text-sm font-semibold">Zapier & N8N</span>
-                            <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
-                                <div class="bg-yellow-500 h-2 rounded-full" style="width: 82%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        /* ── Lights ────────────────────────── */
+        _buildLights() {
+            this.scene.add(new THREE.AmbientLight(0x1a1a3a, 3));
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-slate-900">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h3 class="section-title text-4xl md:text-5xl font-bold mb-4 text-center">
-                <span class="gradient-text">Get In Touch</span>
-            </h3>
-            <p class="text-center text-gray-400 mb-12">Looking for SEO, GEO, AEO, and performance growth? Let's connect.</p>
+            this.blueL = new THREE.PointLight(0x3399ff, 6, 20);
+            this.blueL.position.set(4, 3, 4);
+            this.scene.add(this.blueL);
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <!-- Contact Form -->
-                <div class="contact-form">
-                    <form id="contactForm" class="space-y-6">
-                        <div>
-                            <input type="text" placeholder="Your Name" class="w-full px-4 py-3 bg-slate-800 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                        </div>
-                        <div>
-                            <input type="email" placeholder="Your Email" class="w-full px-4 py-3 bg-slate-800 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                        </div>
-                        <div>
-                            <input type="text" placeholder="Subject" class="w-full px-4 py-3 bg-slate-800 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                        </div>
-                        <div>
-                            <textarea placeholder="Your Message" rows="5" class="w-full px-4 py-3 bg-slate-800 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
-                        </div>
-                        <button type="submit" class="w-full px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 rounded-lg font-semibold transition transform hover:scale-105">
-                            Send Message
-                        </button>
-                    </form>
-                </div>
+            this.purpL = new THREE.PointLight(0xaa44ff, 4, 20);
+            this.purpL.position.set(-4, -2, 3);
+            this.scene.add(this.purpL);
 
-                <!-- Contact Info -->
-                <div class="contact-info space-y-8">
-                    <div class="contact-item flex items-start">
-                        <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                            <i class="fas fa-envelope text-blue-400 text-xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-xl font-semibold mb-2">Email</h4>
-                            <a href="mailto:anujsharma7425@gmail.com" class="text-gray-400 hover:text-blue-400">anujsharma7425@gmail.com</a>
-                        </div>
-                    </div>
+            const pink = new THREE.PointLight(0xff44aa, 2, 15);
+            pink.position.set(0, -4, 2);
+            this.scene.add(pink);
+        }
 
-                    <div class="contact-item flex items-start">
-                        <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                            <i class="fas fa-phone text-purple-400 text-xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-xl font-semibold mb-2">Phone</h4>
-                            <a href="tel:+918306398990" class="text-gray-400 hover:text-purple-400">+91-8306398990</a>
-                        </div>
-                    </div>
+        /* ── Brain shell geometry ──────────── */
+        _buildBrain() {
+            this.brainGroup = new THREE.Group();
+            this.group.add(this.brainGroup);
 
-                    <div class="contact-item flex items-start">
-                        <div class="w-12 h-12 bg-pink-500/20 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                            <i class="fas fa-map-marker-alt text-pink-400 text-xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-xl font-semibold mb-2">Focus</h4>
-                            <p class="text-gray-400">AI SEO, GEO, AEO, Performance Marketing</p>
-                        </div>
-                    </div>
+            // Outer wireframe icosahedron
+            const oGeo = new THREE.IcosahedronGeometry(1.52, 1);
+            const oMat = new THREE.MeshPhongMaterial({
+                color:0x4488ff, emissive:0x112244,
+                wireframe:true, transparent:true, opacity:.42 });
+            this.outerShell = new THREE.Mesh(oGeo, oMat);
+            this.brainGroup.add(this.outerShell);
 
-                    <!-- Social Links -->
-                    <div class="pt-8 border-t border-slate-700">
-                        <h4 class="text-xl font-semibold mb-4">Connect With Me</h4>
-                        <div class="flex gap-4">
-                            <a href="https://linkedin.com/in/amanmarketingpro" class="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center hover:bg-blue-500 transition">
-                                <i class="fab fa-linkedin-in"></i>
-                            </a>
-                            <a href="mailto:anujsharma7425@gmail.com" class="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center hover:bg-gray-600 transition">
-                                <i class="fas fa-envelope"></i>
-                            </a>
-                            <a href="tel:+918306398990" class="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center hover:bg-red-500 transition">
-                                <i class="fas fa-phone"></i>
-                            </a>
-                            <a href="#about" class="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center hover:bg-pink-500 transition">
-                                <i class="fas fa-user"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+            // Mid wireframe octahedron
+            const mGeo = new THREE.OctahedronGeometry(1.12, 2);
+            const mMat = new THREE.MeshPhongMaterial({
+                color:0x8855ff, emissive:0x221133,
+                wireframe:true, transparent:true, opacity:.32 });
+            this.midShell = new THREE.Mesh(mGeo, mMat);
+            this.brainGroup.add(this.midShell);
 
-    <!-- Footer -->
-    <footer class="bg-slate-950 border-t border-slate-800 py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400">&copy; 2026 Anuj Sharma. All rights reserved.</p>
-                <p class="text-gray-500 text-sm">AI SEO & Performance Marketing Strategist | SXO | GEO | AEO</p>
-            </div>
-        </div>
-    </footer>
+            // Glowing core sphere
+            const cGeo = new THREE.SphereGeometry(.62, 32, 32);
+            const cMat = new THREE.MeshPhongMaterial({
+                color:0xaabbff, emissive:0x5566ff,
+                emissiveIntensity:1.1, transparent:true, opacity:.78, shininess:130 });
+            this.coreSphere = new THREE.Mesh(cGeo, cMat);
+            this.brainGroup.add(this.coreSphere);
 
-    <!-- Scripts -->
-    <script src="script.js"></script>
-    <script src="three-setup.js"></script>
+            // Halo ring around core
+            const hGeo = new THREE.TorusGeometry(.82, .024, 8, 64);
+            const hMat = new THREE.MeshBasicMaterial({ color:0x66aaff, transparent:true, opacity:.6 });
+            this.coreHalo = new THREE.Mesh(hGeo, hMat);
+            this.coreHalo.rotation.x = Math.PI / 2;
+            this.brainGroup.add(this.coreHalo);
+        }
+
+        /* ── Neural particle cloud ─────────── */
+        _buildParticles() {
+            const N    = CFG.particleCount;
+            const SPREAD = CFG.particleSpread;
+            this.pData = [];
+
+            const pos  = new Float32Array(N * 3);
+            const cols = new Float32Array(N * 3);
+            const pal  = CFG.COLORS.map(c => new THREE.Color(c));
+
+            for (let i = 0; i < N; i++) {
+                const phi   = Math.acos(2 * Math.random() - 1);
+                const theta = Math.random() * Math.PI * 2;
+                const r     = SPREAD * (.5 + .5 * Math.random());
+                const x     = r * Math.sin(phi) * Math.cos(theta);
+                const y     = r * Math.sin(phi) * Math.sin(theta);
+                const z     = r * Math.cos(phi);
+                pos[i*3]=x; pos[i*3+1]=y; pos[i*3+2]=z;
+                const c = pal[Math.floor(Math.random() * pal.length)];
+                cols[i*3]=c.r; cols[i*3+1]=c.g; cols[i*3+2]=c.b;
+                this.pData.push({
+                    x, y, z,
+                    vx:(Math.random()-.5)*.003, vy:(Math.random()-.5)*.003, vz:(Math.random()-.5)*.003,
+                    ph:Math.random()*Math.PI*2, sp:.5+Math.random()*1.5
+                });
+            }
+
+            const geo = new THREE.BufferGeometry();
+            geo.setAttribute("position", new THREE.BufferAttribute(pos,3));
+            geo.setAttribute("color",    new THREE.BufferAttribute(cols,3));
+            this.particles = new THREE.Points(geo, new THREE.PointsMaterial({
+                size:.052, vertexColors:true, transparent:true, opacity:.88, sizeAttenuation:true }));
+            this.group.add(this.particles);
+            this._pPos = pos;
+
+            /* Pre-allocated line segments buffer */
+            const lPos = new Float32Array(CFG.maxLines * 6);
+            const lCol = new Float32Array(CFG.maxLines * 6);
+            this._lineGeo = new THREE.BufferGeometry();
+            this._lineGeo.setAttribute("position", new THREE.BufferAttribute(lPos,3));
+            this._lineGeo.setAttribute("color",    new THREE.BufferAttribute(lCol,3));
+            this._lineGeo.setDrawRange(0,0);
+            const lMesh = new THREE.LineSegments(this._lineGeo,
+                new THREE.LineBasicMaterial({ vertexColors:true, transparent:true, opacity:.17 }));
+            this.group.add(lMesh);
+        }
+
+        /* ── Three orbital rings ───────────── */
+        _buildRings() {
+            this.rings = [];
+            [
+                { r:2.08, tube:.018, col:0x4499ff, rx:.4,  rz:.2,  spd: .4  },
+                { r:2.55, tube:.012, col:0xaa55ff, rx:1.1, rz:.8,  spd:-.25 },
+                { r:3.05, tube:.008, col:0xff4499, rx:.7,  rz:1.4, spd: .15 },
+            ].forEach(cfg => {
+                const m = new THREE.Mesh(
+                    new THREE.TorusGeometry(cfg.r, cfg.tube, 8, 128),
+                    new THREE.MeshBasicMaterial({ color:cfg.col, transparent:true, opacity:.7 }));
+                m.rotation.x = cfg.rx; m.rotation.z = cfg.rz;
+                this.group.add(m);
+                this.rings.push({ mesh:m, spd:cfg.spd });
+            });
+        }
+
+        /* ── Floating data cubes ───────────── */
+        _buildCubes() {
+            this.cubes = [];
+            const pts   = [[2.8,1.5,.5],[-2.6,-1.2,-.3],[1.8,-2.4,1],[-1.5,2.2,-.8],[3,-0.5,-1.2],[-2.2,.8,1.5]];
+            const cols  = [0x4488ff,0x8855ff,0xff44aa,0x44ddff,0xaaaaff,0x55ffaa];
+            pts.forEach(([x,y,z],i) => {
+                const s = .08 + Math.random()*.1;
+                const m = new THREE.Mesh(
+                    new THREE.BoxGeometry(s,s,s),
+                    new THREE.MeshPhongMaterial({
+                        color:cols[i%cols.length], emissive:cols[i%cols.length],
+                        emissiveIntensity:.4, wireframe:Math.random()>.5,
+                        transparent:true, opacity:.7 }));
+                m.position.set(x,y,z);
+                this.group.add(m);
+                this.cubes.push({ mesh:m, oy:y, ph:Math.random()*Math.PI*2,
+                    sp:.4+Math.random()*.6, rx:(Math.random()-.5)*.02, ry:(Math.random()-.5)*.02 });
+            });
+        }
+
+        /* ── Background starfield ──────────── */
+        _buildStars() {
+            const N   = 550;
+            const pos = new Float32Array(N * 3);
+            for (let i = 0; i < N; i++) {
+                pos[i*3]   = (Math.random()-.5)*40;
+                pos[i*3+1] = (Math.random()-.5)*40;
+                pos[i*3+2] = (Math.random()-.5)*40;
+            }
+            const geo = new THREE.BufferGeometry();
+            geo.setAttribute("position", new THREE.BufferAttribute(pos,3));
+            this.scene.add(new THREE.Points(geo,
+                new THREE.PointsMaterial({ color:0x8899cc, size:.03, transparent:true, opacity:.45, sizeAttenuation:true })));
+        }
+
+        /* ── Holographic scan sweep ────────── */
+        _buildScan() {
+            this.scanPlane = new THREE.Mesh(
+                new THREE.PlaneGeometry(5.5, .014),
+                new THREE.MeshBasicMaterial({ color:0x44aaff, transparent:true, opacity:.22, side:THREE.DoubleSide }));
+            this.scanPlane.position.y = -2;
+            this.group.add(this.scanPlane);
+        }
+
+        /* ── Event bindings ────────────────── */
+        _bindEvents() {
+            window.addEventListener("mousemove", e => {
+                this.mouse.x = (e.clientX / window.innerWidth  - .5) * 2;
+                this.mouse.y = (e.clientY / window.innerHeight - .5) * 2;
+            });
+            window.addEventListener("scroll",  () => { this.scrollY = window.scrollY; }, { passive:true });
+            const ro = new ResizeObserver(() => this._onResize());
+            ro.observe(this.el);
+        }
+
+        _onResize() {
+            this.W = this.el.clientWidth;
+            this.H = this.el.clientHeight;
+            this.cam.aspect = this.W / this.H;
+            this.cam.updateProjectionMatrix();
+            this.renderer.setSize(this.W, this.H);
+        }
+
+        /* ── Update neural connections ─────── */
+        _updateLines(t) {
+            const THRESH = CFG.connectionThresh;
+            const pos    = this._pPos;
+            const lp     = this._lineGeo.attributes.position;
+            const lc     = this._lineGeo.attributes.color;
+            let idx = 0;
+            const N = this.pData.length;
+
+            for (let i = 0; i < N && idx < CFG.maxLines; i++) {
+                for (let j = i + 1; j < N && idx < CFG.maxLines; j++) {
+                    const dx = pos[i*3]   - pos[j*3];
+                    const dy = pos[i*3+1] - pos[j*3+1];
+                    const dz = pos[i*3+2] - pos[j*3+2];
+                    const d  = Math.sqrt(dx*dx + dy*dy + dz*dz);
+                    if (d < THRESH) {
+                        const pulse = .3 + .5 * Math.sin(t * 2 + i * .3);
+                        const a     = (1 - d / THRESH) * pulse;
+
+                        lp.array[idx*6]   = pos[i*3];   lp.array[idx*6+1] = pos[i*3+1]; lp.array[idx*6+2] = pos[i*3+2];
+                        lp.array[idx*6+3] = pos[j*3];   lp.array[idx*6+4] = pos[j*3+1]; lp.array[idx*6+5] = pos[j*3+2];
+
+                        lc.array[idx*6]   = .2+.4*a; lc.array[idx*6+1] = .4*a; lc.array[idx*6+2] = a;
+                        lc.array[idx*6+3] = .5*a;    lc.array[idx*6+4] = .2*a; lc.array[idx*6+5] = a;
+                        idx++;
+                    }
+                }
+            }
+            lp.needsUpdate = lc.needsUpdate = true;
+            this._lineGeo.setDrawRange(0, idx * 2);
+        }
+
+        /* ── Animation loop ────────────────── */
+        _loop() {
+            requestAnimationFrame(() => this._loop());
+            const t = this.clock.getElapsedTime();
+
+            /* Mouse parallax → smooth lerp */
+            this.targetRot.y = this.mouse.x * .30;
+            this.targetRot.x = this.mouse.y * .16;
+            this.currentRot.x += (this.targetRot.x - this.currentRot.x) * .04;
+            this.currentRot.y += (this.targetRot.y - this.currentRot.y) * .04;
+            this.group.rotation.x = this.currentRot.x;
+            this.group.rotation.y = this.currentRot.y;
+
+            /* Scroll parallax */
+            const sf = this.scrollY / (window.innerHeight * .75);
+            this.group.position.y   = -sf * 1.5;
+            this.group.scale.setScalar(1 - Math.min(sf * .28, .28));
+
+            /* Brain shells */
+            this.outerShell.rotation.y = t * .17;
+            this.outerShell.rotation.z = t * .06;
+            this.midShell.rotation.y   = -t * .22;
+            this.midShell.rotation.x   = t * .11;
+
+            /* Core pulse */
+            const pulse = .9 + .1 * Math.sin(t * 2.5);
+            this.coreSphere.scale.setScalar(pulse);
+            this.coreSphere.material.emissiveIntensity = .8 + .6 * Math.sin(t * 3);
+            this.coreHalo.rotation.z = t * .58;
+            this.coreHalo.material.opacity = .4 + .3 * Math.sin(t * 2);
+
+            /* Rings */
+            this.rings.forEach(r => { r.mesh.rotation.y += r.spd * .01; });
+
+            /* Particles drift */
+            const pos = this._pPos;
+            this.pData.forEach((p, i) => {
+                p.x += p.vx; p.y += p.vy; p.z += p.vz;
+                const r2 = p.x*p.x + p.y*p.y + p.z*p.z;
+                if (r2 > 14.4 || r2 < 2.25) { p.vx*=-.98; p.vy*=-.98; p.vz*=-.98; }
+                pos[i*3]=p.x; pos[i*3+1]=p.y; pos[i*3+2]=p.z;
+            });
+            this.particles.geometry.attributes.position.needsUpdate = true;
+
+            /* Lines every 2nd frame */
+            if (Math.round(t * 60) % 2 === 0) this._updateLines(t);
+
+            /* Cubes */
+            this.cubes.forEach(c => {
+                c.mesh.rotation.x += c.rx;
+                c.mesh.rotation.y += c.ry;
+                c.mesh.position.y  = c.oy + .15 * Math.sin(t * c.sp + c.ph);
+            });
+
+            /* Scan sweep */
+            this.scanPlane.position.y   = -2.2 + ((t * .58) % 4.4);
+            this.scanPlane.material.opacity = .1 + .2 * Math.sin(t * 1.5);
+
+            /* Animated lights */
+            this.blueL.position.x = 4 * Math.cos(t * .28);
+            this.blueL.position.z = 4 * Math.sin(t * .28);
+            this.purpL.position.x = -4 * Math.cos(t * .18);
+            this.purpL.position.z = -4 * Math.sin(t * .18);
+
+            this.renderer.render(this.scene, this.cam);
+        }
+    }
+})();
+</script>
+
 </body>
 </html>
